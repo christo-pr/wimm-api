@@ -17,5 +17,10 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
+  return { ok: new Date().toISOString() }
 })
+
+Route.group(() => {
+  Route.resource('users', 'UserController')
+  Route.resource('expenses', 'ExpensesController')
+}).prefix('api/v1').middleware(['auth:basic'])
