@@ -8,6 +8,13 @@ class User {
       password: "required",
     }
   }
+
+  get messages() {
+    return {
+      required: "Make sure to enter the field value",
+      email: "invalid user email address",
+    }
+  }
 }
 
 module.exports = User
