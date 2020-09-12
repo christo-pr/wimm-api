@@ -36,7 +36,7 @@ Route.group(() => {
     .validator(new Map([[["users.store"], ["User"]]]))
 
   // Expenses API
-  Route.resource("expenses", "ExpensesController").apiOnly()
+  Route.resource("expenses", "ExpenseController").apiOnly()
 })
   .prefix("api/v1")
   .middleware(["auth:basic"])
