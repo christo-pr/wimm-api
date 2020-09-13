@@ -30,10 +30,13 @@ Route.group(() => {
  * API Routes
  */
 Route.group(() => {
-  Route.resource("users", "UserController").validator(
-    new Map([[["users.store"], ["User"]]])
-  )
-  Route.resource("expenses", "ExpensesController")
+  // User API
+  Route.resource("users", "UserController")
+    .apiOnly()
+    .validator(new Map([[["users.store"], ["User"]]]))
+
+  // Expenses API
+  Route.resource("expenses", "ExpenseController").apiOnly()
 })
   .prefix("api/v1")
   .middleware(["auth:basic"])

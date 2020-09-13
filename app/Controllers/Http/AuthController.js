@@ -10,11 +10,11 @@ class AuthController {
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
-   * @param {View} ctx.view
    */
-  async register({ request, response, view }) {
+  async register({ request, response }) {
     const body = request.post()
-    const user = await User.create({})
+    const user = await User.create(body)
+    return response.status(201).json(user)
   }
 }
 
