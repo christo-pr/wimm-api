@@ -1,30 +1,29 @@
 "use strict"
 
 const { test, trait, before, after } = use("Test/Suite")("Expense CRUD")
-const Expense = use("App/Models/Expense")
-const User = use("App/Models/User")
+const {
+  setupDatabase,
+  resetDatabase,
+  credentials,
+  baseApiUrl,
+} = require("../testSetup")
 
 trait("Test/ApiClient")
 trait("Auth/Client")
 
-const apiUrl = "/api/v1"
-const credentials = "test@test.com:testing123"
-
 before(async () => {
-  const [email, password] = credentials.split(":")
-  await User.create({ email, password, username: "Test user" })
+  await setupDatabase()
 })
 
 after(async () => {
-  await User.truncate()
-  await Expense.truncate()
+  await resetDatabase()
 })
 
 test("GET - Should return a list of all expenses ", async ({ client }) => {
   const [email, password] = credentials.split(":")
 
   const response = await client
-    .get(`${apiUrl}/expenses`)
+    .get(`${baseApiUrl}/expenses`)
     .loginVia(email, password, "basic")
     .accept("json")
     .end()
@@ -37,7 +36,7 @@ test("POST - Should create a new expense ", async ({ client }) => {
   const [email, password] = credentials.split(":")
 
   const response = await client
-    .post(`${apiUrl}/expenses`)
+    .post(`${baseApiUrl}/expenses`)
     .send({
       user_id: 1,
       due_date: new Date(),
