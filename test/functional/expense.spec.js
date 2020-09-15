@@ -20,6 +20,7 @@ after(async () => {
 })
 
 test("GET - Should return a list of all expenses ", async ({ client }) => {
+  ;``
   const [email, password] = credentials.split(":")
 
   const response = await client
@@ -53,4 +54,47 @@ test("POST - Should create a new expense ", async ({ client }) => {
     id: 1,
     description: "tienda",
   })
+})
+
+test("PUT - Should update the expense ", async ({ client }) => {
+  const [email, password] = credentials.split(":")
+
+  const response = await client
+    .put(`${baseApiUrl}/expenses/1`)
+    .send({
+      user_id: 1,
+      description: "tienda2",
+    })
+    .loginVia(email, password, "basic")
+    .accept("json")
+    .end()
+
+  response.assertStatus(200)
+  response.assertJSONSubset({
+    id: 1,
+    description: "tienda2",
+  })
+})
+
+test("DELETE - Should delete the expense", async ({ client }) => {
+  const [email, password] = credentials.split(":")
+
+  const response = await client
+    .delete(`${baseApiUrl}/expenses/1`)
+    .loginVia(email, password, "basic")
+    .accept("json")
+    .end()
+
+  response.assertStatus(202)
+  response.assertJSON({
+    ok: "success",
+  })
+
+  const res = await client
+    .get(`${baseApiUrl}/expenses`)
+    .loginVia(email, password, "basic")
+    .accept("json")
+    .end()
+
+  res.assertJSON([])
 })
