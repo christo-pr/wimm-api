@@ -56,7 +56,14 @@ class ExpenseController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({ params, request, response }) {}
+  async update({ params, request, response }) {
+    const expense = await Expense.find(params.id)
+
+    expense.merge(request.post())
+    await expense.save()
+
+    return response.status(200).json(expense)
+  }
 
   /**
    * Delete a expense with id.
@@ -66,7 +73,11 @@ class ExpenseController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({ params, request, response }) {}
+  async destroy({ params, response }) {
+    await Expense.query().where("id", params.id).delete()
+
+    return response.status(202).json({ ok: "success" })
+  }
 }
 
 module.exports = ExpenseController
