@@ -37,6 +37,9 @@ Route.group(() => {
 
   // Expenses API
   Route.resource("expenses", "ExpenseController").apiOnly()
+
+  // Monthly Payments
+  Route.resource("monthly-payments", "MonthlyPaymentController").apiOnly()
 })
   .prefix("api/v1")
   .middleware(["auth:basic"])
