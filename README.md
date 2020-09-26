@@ -1,23 +1,14 @@
-# Adonis API application
+### WIMM API
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+API for Where Is My Money? App
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+### Setup
 
-## Setup
+> You need to have installed [Adonis CLI](https://adonisjs.com/docs/4.1/installation#_installing_adonisjs)
 
-Use the adonis command to install the blueprint
-
-```bash
-adonis new yardstick --api-only
-```
-
-or manually clone the repo and then run `npm install`.
-
+1.- Clone de project
+2.- Install dependencies: `npm install`
+3.- Run the project: `npm start`
 
 ### Migrations
 
@@ -26,3 +17,5 @@ Run the following command to run startup migrations.
 ```js
 adonis migration:run
 ```
+
+### Deploy

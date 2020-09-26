@@ -1,0 +1,14 @@
+- name: Wimm api
+  hosts: all
+  tasks:
+    - name: Install nvm
+      shell: >
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.36.0/install.sh | bash
+      args:
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+    - name: Install node
+      become: yes
+      shell: source "{{ ansible_env.HOME }}/.nvm/nvm.sh" && nvm install 12.16.1 && nvm alias default 12.16.1
+      args:
+        executable: /bin/bash
